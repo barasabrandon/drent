@@ -1,5 +1,8 @@
 import '@/styles/globals.css';
 import { SessionProvider } from 'next-auth/react';
+import { ThemeProvider } from 'next-themes';
+import { Provider } from 'react-redux';
+import store from '../store/index';
 
 export default function App({
   Component,
@@ -7,7 +10,11 @@ export default function App({
 }) {
   return (
     <SessionProvider session={session}>
-      <Component {...pageProps} />
+      <ThemeProvider attribute="class">
+        <Provider store={store}>
+          <Component {...pageProps} />
+        </Provider>
+      </ThemeProvider>
     </SessionProvider>
   );
 }
