@@ -10,7 +10,7 @@ export default function MenuIcon() {
   const [isBigScreen, setIsBigScreen] = useState(false);
 
   const getStrokeColor = () => {
-    return resolvedTheme === 'dark' ? 'white' : 'blue'; // Set the desired colors for dark and light themes
+    return resolvedTheme === 'dark' ? '#d1d5db' : '#6b7280'; // Set the desired colors for dark and light themes
   };
 
   function handleMenuIconClick(e) {

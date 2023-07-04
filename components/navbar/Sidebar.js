@@ -29,13 +29,12 @@ export default function Sidebar() {
     }
   }, [isBigScreen, dispatch]);
 
-
   return (
     <>
       {isBigScreen ? (
         <SideBarTags />
       ) : (
-        <>{menuIconState ? <SideBarTags /> : ''}</>
+        <>{menuIconState ? '' : <SideBarTags />}</>
       )}
     </>
   );

@@ -3,6 +3,7 @@ import { useSession } from 'next-auth/react';
 import ToggleMode from './ToggleMode';
 import { useSelector } from 'react-redux';
 import MenuIcon from './MenuIcon';
+import ProfileContainer from './ProfileContainer';
 
 export default function Navbar({ MenuIsSet }) {
   const { data: session } = useSession();
@@ -22,20 +23,15 @@ export default function Navbar({ MenuIsSet }) {
   }, []);
 
   return (
-    <nav class="bg-gray-300 dark:bg-gray-800">
+    <nav class="bg-gray-200 dark:bg-gray-800">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between h-16">
-          {menuIconState ? (
-            ''
+          {isSmallScreen ? (
+            <>{menuIconState ? 'Logo' : <ProfileContainer />}</>
           ) : (
-            <div class="flex-shrink-0">
-              <a
-                href="#"
-                class="text-blue-500 dark:text-white text-xl font-bold"
-              >
-                {isSmallScreen ? 'Logo' : 'Brandon Wanambisi'}
-              </a>
-            </div>
+            <>
+              <ProfileContainer />
+            </>
           )}
           <div className="flex justify-center items-center">
             <div class="hidden md:block">
