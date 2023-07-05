@@ -19,12 +19,17 @@ export default function Index() {
     setIslocationOpen(id === islocationOpen ? null : id);
   };
 
-  const filteredData = rentals?.filter(
-    (item) => console.log(item)
-    // typeof item === 'string' &&
-    // item._id !== '_id' &&
-    // item.toLowerCase().includes(searchTerm.toLocaleLowerCase())
-  );
+  const deleteRental = async (id) => {
+    const res = await axios.delete('/api/dashboard/landlord/landlord', id);
+    console.log('Response:', res);
+  };
+
+  // const filteredData = rentals?.filter(
+  //   (item) =>
+  //     typeof item === 'object' &&
+  //     item.toLowerCase().includes(searchTerm.toLocaleLowerCase())
+  // );
+  // console.log(filteredData);
 
   return (
     <Layout>
@@ -35,7 +40,7 @@ export default function Index() {
             <span className="ml-3 whitespace-nowrap">{rentals?.length}</span>
           </div>
           <Link
-            href={'/rentals/create'}
+            href={'/dashboard/rentals/create'}
             className="bg-white  dark:bg-gray-700 h-10 w-fit flex-row flex items-center justify-center pl-3 pr-3 md:pl-3 rounded-md"
           >
             Add
@@ -78,7 +83,7 @@ export default function Index() {
                   <th class="whitespace-no-wrap border">Manage</th>
                   <th class="whitespace-no-wrap border">Location</th>
                 </tr>
-                {filteredData.map((item) => (
+                {rentals?.map((item) => (
                   <tr key={item._id} c>
                     <td class="whitespace-no-wrap border">{item.name}</td>
                     <td class="whitespace-no-wrap border ">
@@ -125,7 +130,7 @@ export default function Index() {
                     </td>
                     <td class="whitespace-no-wrap border flex items-center justify-center">
                       <div className="flex flex-row gap-3">
-                        <div className="flex flex-row items-center justify-center">
+                        <div className="flex flex-row items-center justify-center bg-blue-500 text-white px-2 rounded-md cursor-pointer">
                           <div className="mr-1"> Edit</div>
                           <div>
                             <svg
@@ -138,19 +143,24 @@ export default function Index() {
                             </svg>
                           </div>
                         </div>
-                        <div className="flex flex-row justify-center items-center">
+                        <div
+                          className="flex flex-row justify-center items-center bg-red-500 px-3 rounded-md text-white cursor-pointer"
+                          onClick={() => deleteRental(item._id)}
+                        >
                           <div className="mr-1"> Delete</div>
                           <div>
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
+                              fill="none"
                               viewBox="0 0 24 24"
-                              fill="currentColor"
-                              class="w-4 h-4"
+                              strokeWidth={1.5}
+                              stroke="currentColor"
+                              className="w-4 h-4"
                             >
                               <path
-                                fill-rule="evenodd"
-                                d="M16.5 4.478v.227a48.816 48.816 0 013.878.512.75.75 0 11-.256 1.478l-.209-.035-1.005 13.07a3 3 0 01-2.991 2.77H8.084a3 3 0 01-2.991-2.77L4.087 6.66l-.209.035a.75.75 0 01-.256-1.478A48.567 48.567 0 017.5 4.705v-.227c0-1.564 1.213-2.9 2.816-2.951a52.662 52.662 0 013.369 0c1.603.051 2.815 1.387 2.815 2.951zm-6.136-1.452a51.196 51.196 0 013.273 0C14.39 3.05 15 3.684 15 4.478v.113a49.488 49.488 0 00-6 0v-.113c0-.794.609-1.428 1.364-1.452zm-.355 5.945a.75.75 0 10-1.5.058l.347 9a.75.75 0 101.499-.058l-.346-9zm5.48.058a.75.75 0 10-1.498-.058l-.347 9a.75.75 0 001.5.058l.345-9z"
-                                clip-rule="evenodd"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
                               />
                             </svg>
                           </div>

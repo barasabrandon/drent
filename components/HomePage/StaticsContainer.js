@@ -5,7 +5,7 @@ export default function StaticsContainer({ title, count }) {
   const router = useRouter();
   function manageClick(e) {
     e.preventDefault();
-    router.push(`/${title.toLowerCase()}`);
+    router.push(`/dashboard/${title.toLowerCase()}`);
   }
   return (
     <div class="bg-white text-blue-500 dark:text-gray-300 dark:bg-gray-700 p-4  rounded-md flex flex-col justify-center items-center text-center gap-4">

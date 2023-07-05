@@ -88,7 +88,7 @@ export default function SideBarTags() {
       </div>
       <div class="flex flex-col mt-8">
         <Link
-          href={'/'}
+          href={'/dashboard'}
           class="py-2 px-4 text-blue-500 bg-slate-300 dark:bg-gray-900 dark:text-gray-300 flex flex-row gap-3"
         >
           <div>

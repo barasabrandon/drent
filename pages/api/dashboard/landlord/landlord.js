@@ -54,4 +54,8 @@ export default async function handle(req, res) {
       console.log(error);
     }
   }
+
+  if (method === 'DELETE') {
+    res.json({ msg: 'Reached.' });
+  }
 }
