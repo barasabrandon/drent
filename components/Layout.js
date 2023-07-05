@@ -24,10 +24,9 @@ export default function Layout({ children }) {
       <div className="flex-grow bg-white">
         <Navbar MenuIsSet={MenuIsSet} />
         {/* <!-- Rest of the content --> */}
-        <div className="m-0 dark:m-0 dark:bg-gray-700 h-fit ">
+        <div className="m-0 dark:m-0 dark:bg-gray-700 h-full ">
           <div className="p-10 flex items-center justify-center sm:h-fit sm:w-full bg-white dark:bg-gray-700 text-lg">
             <div className="bg-gray-200 dark:bg-gray-800 h-full  w-full p-4 sm:p-4 md:p-4 rounded-lg flex flex-col gap-5">
-              {' '}
               {children}
             </div>
           </div>

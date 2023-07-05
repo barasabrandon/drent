@@ -15,7 +15,7 @@ export default function Create() {
   const [roomType, setRoomType] = useState('');
   const [roomTypeNumber, setRoomTypeNumber] = useState('');
   const [roomCharges, setRoomCharges] = useState('');
-  const [loctionCounty, setLoctionCounty] = useState('');
+  const [locationCounty, setLocationCounty] = useState('');
   const [locationSubcounty, setLocationSubcounty] = useState('');
   const [locationEstate, setLocationEstate] = useState('');
   const [description, setDescription] = useState('');
@@ -56,12 +56,13 @@ export default function Create() {
         landlordContacts,
         caretakerContact,
         roomDetails,
-        loctionCounty,
+        locationCounty,
         locationSubcounty,
         locationEstate,
         description,
       };
-      await axios.post('/api/landlord/landlord', data);
+      const res = await axios.post('/api/landlord/landlord', data);
+      console.log(res);
     }
   }
 
@@ -231,8 +232,8 @@ export default function Create() {
             <input
               className="shadow appearance-none border mb-2 dark:border-gray-500  dark:bg-gray-500 dark:text-gray-300 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               type="text"
-              value={loctionCounty}
-              onChange={(ev) => setLoctionCounty(ev.target.value)}
+              value={locationCounty}
+              onChange={(ev) => setLocationCounty(ev.target.value)}
               placeholder="County "
               required
             />
