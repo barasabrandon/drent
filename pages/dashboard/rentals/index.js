@@ -3,6 +3,7 @@ import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { ClipLoader } from 'react-spinners';
+import Create from './create';
 
 export default function Index() {
   const [rentals, setRentals] = useState(null);
@@ -38,9 +39,15 @@ export default function Index() {
   };
 
   const getRentalData = async (id) => {
-    const res = await axios.get('/api/landlord/landlord', {
-      params: { id: id },
+    const { data, status } = await axios.get('/api/landlord/landlord', {
+      params: { id },
     });
+
+    if (status === 200) {
+      return <Create {...data} />;
+    } else {
+      alert('An error occured try again later.');
+    }
   };
   // const filteredData = rentals?.filter(
   //   (item) =>

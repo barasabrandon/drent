@@ -7,7 +7,12 @@ export default async function handle(req, res) {
 
   if (method === 'GET') {
     if (req.query?.id) {
-      console.log('Code with id.');
+      const getRental = await Rentals.findById(req.query?.id);
+      if (getRental) {
+        res.status(200).json(getRental);
+      } else {
+        res.status(404).json({ msg: 'Not found.' });
+      }
     } else {
       const results = await Rentals.find();
       res.json(results);
