@@ -2,15 +2,20 @@ import Layout from '@/components/Layout';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { ClipLoader } from 'react-spinners';
 
 export default function Index() {
   const [rentals, setRentals] = useState(null);
   const [islocationOpen, setIslocationOpen] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+
   useEffect(() => {
     async function getRentals() {
+      setIsLoading(true);
       const { data } = await axios.get('/api/landlord/landlord');
       setRentals(data);
+      setIsLoading(false);
     }
     getRentals();
   }, []);
@@ -20,10 +25,23 @@ export default function Index() {
   };
 
   const deleteRental = async (id) => {
-    const res = await axios.delete('/api/dashboard/landlord/landlord', id);
-    console.log('Response:', res);
+    const testString = 'Test String';
+    const response = await fetch('/api/landlord/landlord', {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ id: testString }),
+    });
+
+    console.log(response);
   };
 
+  const getRentalData = async (id) => {
+    const res = await axios.get('/api/landlord/landlord', {
+      params: { id: id },
+    });
+  };
   // const filteredData = rentals?.filter(
   //   (item) =>
   //     typeof item === 'object' &&
@@ -47,7 +65,9 @@ export default function Index() {
           </Link>
         </div>
         <div className="flex items-center justify-center text-blue-500 dark:text-gray-300">
-          {rentals === null ? (
+          {isLoading ? (
+            <ClipLoader color={'#1E3A8A'} speedMultiplier={1} />
+          ) : rentals === null ? (
             <div className="bg-white dark:bg-gray-700  h-10 w-fit flex-row flex items-center justify-center pl-3 pr-3 md:pl-3 rounded-md ">
               No records yet. Register to begin performing actions
             </div>
@@ -130,7 +150,10 @@ export default function Index() {
                     </td>
                     <td class="whitespace-no-wrap border flex items-center justify-center">
                       <div className="flex flex-row gap-3">
-                        <div className="flex flex-row items-center justify-center bg-blue-500 text-white px-2 rounded-md cursor-pointer">
+                        <div
+                          className="flex flex-row items-center justify-center bg-blue-500 text-white px-2 rounded-md cursor-pointer"
+                          onClick={() => getRentalData(item._id)}
+                        >
                           <div className="mr-1"> Edit</div>
                           <div>
                             <svg

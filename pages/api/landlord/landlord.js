@@ -6,8 +6,12 @@ export default async function handle(req, res) {
   await mongooseConnect();
 
   if (method === 'GET') {
-    const results = await Rentals.find();
-    res.json(results);
+    if (req.query?.id) {
+      console.log('Code with id.');
+    } else {
+      const results = await Rentals.find();
+      res.json(results);
+    }
   }
 
   if (method === 'POST') {
@@ -56,6 +60,11 @@ export default async function handle(req, res) {
   }
 
   if (method === 'DELETE') {
-    res.json({ msg: 'Reached.' });
+    try {
+      res.json({ msg: req.body });
+      console.log('Delete:', req.body);
+    } catch (error) {
+      console.log(error);
+    }
   }
 }
