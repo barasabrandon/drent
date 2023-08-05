@@ -11,6 +11,7 @@ export default async function handle(req, res) {
       if (getRental) {
         res.status(200).json(getRental);
       } else {
+        console.log('Not found.');
         res.status(404).json({ msg: 'Not found.' });
       }
     } else {

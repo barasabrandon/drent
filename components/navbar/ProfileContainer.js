@@ -20,8 +20,11 @@ export default function ProfileContainer() {
   }, []);
 
   return (
-    <div class="flex-shrink-0">
-      <a href="#" class="text-blue-500 dark:text-gray-300 text-xl font-bold">
+    <div className="flex-shrink-0">
+      <a
+        href="#"
+        className="text-blue-500 dark:text-gray-300 text-xl font-bold"
+      >
         {isSmallScreen ? (
           menuIconState ? (
             'Logo'

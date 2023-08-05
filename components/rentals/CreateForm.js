@@ -4,21 +4,39 @@ import React, { useState } from 'react';
 import { ReactSortable } from 'react-sortablejs';
 import axios from 'axios';
 
-export default function CreateForm                                                      ({ _id }) {
+export default function CreateForm({
+  _id,
+  name: oldName,
+  contacts,
+  location,
+  rooms,
+  description: oldDescription,
+  images: oldImages,
+}) {
   const [isUploading, setIsUploading] = useState(false);
-  const [images, setImages] = useState([]);
-  const [name, setName] = useState('');
-  const [landlordContacts, setLandlordContacts] = useState('');
-  const [caretakerContact, setCaretakerContact] = useState('');
+  const [images, setImages] = useState(oldImages || []);
+  const [name, setName] = useState(oldName || '');
+  const [landlordContacts, setLandlordContacts] = useState(
+    contacts ? contacts[0].landlord : ''
+  );
+  const [caretakerContact, setCaretakerContact] = useState(
+    contacts ? contacts[0].caretaker : ''
+  );
   const [addRoom, setAddRoom] = useState(false);
   const [roomDetails, setRoomDetails] = useState([]);
   const [roomType, setRoomType] = useState('');
   const [roomTypeNumber, setRoomTypeNumber] = useState('');
   const [roomCharges, setRoomCharges] = useState('');
-  const [locationCounty, setLocationCounty] = useState('');
-  const [locationSubcounty, setLocationSubcounty] = useState('');
-  const [locationEstate, setLocationEstate] = useState('');
-  const [description, setDescription] = useState('');
+  const [locationCounty, setLocationCounty] = useState(
+    location ? location[0].county : ''
+  );
+  const [locationSubcounty, setLocationSubcounty] = useState(
+    location ? location[0].subcounty : ''
+  );
+  const [locationEstate, setLocationEstate] = useState(
+    location ? location[0].estate : ''
+  );
+  const [description, setDescription] = useState(oldDescription || '');
 
   // Upload Images and get links
   async function uploadImages(event) {

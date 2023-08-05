@@ -3,13 +3,16 @@ import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { ClipLoader } from 'react-spinners';
-import Create from './create';
+import CreateForm from '@/components/rentals/CreateForm';
+import { useRouter } from 'next/router';
+import Edit from './edit';
 
 export default function Index() {
   const [rentals, setRentals] = useState(null);
   const [islocationOpen, setIslocationOpen] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     async function getRentals() {
@@ -38,23 +41,29 @@ export default function Index() {
     console.log(response);
   };
 
-  const getRentalData = async (id) => {
-    const { data, status } = await axios.get('/api/landlord/landlord', {
-      params: { id },
-    });
-
-    if (status === 200) {
-      return <Create {...data} />;
-    } else {
-      alert('An error occured try again later.');
-    }
-  };
+  // const getRentalData = async (id) => {
+  //   // router.push(`/api/landlord/${id}`);
+  //   return <CreateForm />;
+  //   // const { data, status } = await axios.get('/api/landlord/landlord', {
+  //   //   params: { id },
+  //   // });
+  //   // if (status === 200) {
+  //   //   console.log('Found.');
+  //   //   return <CreateForm {...data} />;
+  //   // } else {
+  //   //   alert('An error occured try again later.');
+  //   // }
+  // };
   // const filteredData = rentals?.filter(
   //   (item) =>
   //     typeof item === 'object' &&
   //     item.toLowerCase().includes(searchTerm.toLocaleLowerCase())
   // );
   // console.log(filteredData);
+
+  const getRentalData = async (id) => {
+    router.push(`/api/landlord/${id}`);
+  };
 
   return (
     <Layout>
